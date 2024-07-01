@@ -15,7 +15,7 @@
             background-color: #f0f0f0;
         }
         .flashcard {
-            width: 300px;
+            width: 400px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
@@ -28,7 +28,7 @@
             font-size: 16px;
             cursor: pointer;
         }
-        #revealBtn {
+        #revealBtn, #restartBtn {
             background-color: #3498db;
             color: white;
             border: none;
@@ -71,6 +71,7 @@
         <button id="revealBtn">Révéler</button>
         <button id="trueBtn">Vrai</button>
         <button id="falseBtn">Faux</button>
+        <button id="restartBtn" style="display: none;">Recommencer</button>
     </div>
 
     <script>
@@ -79,7 +80,17 @@
             { q: "Quelle est la distinction fondamentale entre les biens en droit civil français ?", a: "La distinction entre les biens meubles et les biens immeubles." },
             { q: "Qu'est-ce qu'une chose consomptible ?", a: "Une chose détruite par le premier usage qu'on en fait." },
             { q: "Définissez les choses fongibles.", a: "Des choses interchangeables, appréciées par leur nombre, poids ou mesure." },
-            { q: "Quel est le critère principal pour distinguer un meuble d'un immeuble ?", a: "La mobilité ou la fixité du bien." }
+            { q: "Quel est le critère principal pour distinguer un meuble d'un immeuble ?", a: "La mobilité ou la fixité du bien." },
+            { q: "Qu'est-ce qu'un immeuble par destination ?", a: "Un bien physiquement meuble devenu immeuble car accessoire indispensable d'un immeuble." },
+            { q: "Définissez le patrimoine en droit.", a: "L'ensemble des droits et des biens dont est titulaire une personne à un moment donné." },
+            { q: "Quelle est la différence principale entre un droit réel et un droit personnel ?", a: "Un droit réel s'exerce directement sur une chose, un droit personnel s'exerce contre une personne." },
+            { q: "Qu'est-ce que la théorie personnaliste du patrimoine ?", a: "Théorie selon laquelle seules les personnes peuvent avoir un patrimoine, chaque personne n'a qu'un patrimoine." },
+            { q: "Qu'est-ce que le droit de suite dans le contexte des droits réels ?", a: "Le droit de revendiquer le bien en quelques mains qu'il se trouve." },
+            { q: "Donnez un exemple de droit réel accessoire.", a: "L'hypothèque." },
+            { q: "Qu'est-ce qu'une res communis ?", a: "Une chose inappropriable et inappropriée, comme l'air ou l'eau." },
+            { q: "Qu'est-ce qu'une res nullius ?", a: "Une chose sans maître que le premier à s'en emparer peut s'approprier." },
+            { q: "Comment le droit français considère-t-il actuellement les animaux ?", a: "Comme des biens, mais avec un statut particulier reconnaissant leur caractère d'êtres vivants doués de sensibilité." },
+            { q: "Qu'est-ce que le domaine public en droit français ?", a: "L'ensemble des biens appartenant à une personne publique et affectés à l'usage direct du public ou à un service public." }
         ];
 
         let currentCard = 0;
@@ -90,6 +101,7 @@
         const revealBtn = document.getElementById('revealBtn');
         const trueBtn = document.getElementById('trueBtn');
         const falseBtn = document.getElementById('falseBtn');
+        const restartBtn = document.getElementById('restartBtn');
 
         function updateCard() {
             if (currentCard < flashcards.length) {
@@ -99,6 +111,7 @@
                 revealBtn.style.display = 'inline-block';
                 trueBtn.style.display = 'none';
                 falseBtn.style.display = 'none';
+                restartBtn.style.display = 'none';
             } else {
                 showRecap();
             }
@@ -111,6 +124,13 @@
             revealBtn.style.display = 'none';
             trueBtn.style.display = 'none';
             falseBtn.style.display = 'none';
+            restartBtn.style.display = 'inline-block';
+        }
+
+        function restart() {
+            currentCard = 0;
+            score = { true: 0, false: 0 };
+            updateCard();
         }
 
         revealBtn.addEventListener('click', () => {
@@ -139,6 +159,8 @@
                 updateCard();
             }, 500);
         });
+
+        restartBtn.addEventListener('click', restart);
 
         updateCard();
     </script>
